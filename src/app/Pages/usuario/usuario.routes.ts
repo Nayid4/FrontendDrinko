@@ -6,13 +6,15 @@ import { SobreNosotrosComponent } from './sobre-nosotros/sobre-nosotros.componen
 import { ResenasComponent } from './resenas/resenas.component'
 import { ContactoComponent } from './contacto/contacto.component'
 import { PerfilComponent } from './perfil/perfil.component'
+import { CarritoDeComprasComponent } from './carrito-de-compras/carrito-de-compras.component'
 
 export const USUARIO_ROUTES: Routes = [
     { path: 'inicio', component: InicioComponent },
     { path: 'productos', component: ProductosComponent },
     { path: 'detalles-de-producto', component: DetallesDeProductoComponent },
-    { path: 'sobre-nostros', component: SobreNosotrosComponent },
+    { path: 'sobre-nosotros', component: SobreNosotrosComponent },
     { path: 'resenas', component: ResenasComponent },
     { path: 'contacto', component: ContactoComponent },
+    { path: 'carrito-de-compras', component: CarritoDeComprasComponent },
     { path: 'perfil', component: PerfilComponent },
 ]
