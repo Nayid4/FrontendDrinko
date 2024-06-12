@@ -11,6 +11,11 @@ export const routes: Routes = [
     },
     {
         path: 'administrador',
-        loadChildren: () => import('./Pages/administrador/administrador.routes').then(m => m.ADMNSITRADOR_ROUTES)
+        loadChildren: () => import('./Pages/administrador/administrador.routes').then(m => m.ADMINISTRADOR_ROUTES)
+    },
+    {
+        path: 'inicio', // Redirigir '/inicio' a '/usuario/inicio'
+        redirectTo: 'usuario/inicio',
+        pathMatch: 'full'
     }
 ];

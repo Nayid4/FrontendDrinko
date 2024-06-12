@@ -1,12 +1,46 @@
 import { Component } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../../core/services/auth.service';
+import { FormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
+import { InicioDeSesionDTO } from '../../../core/models/auth.model';
 
 @Component({
   selector: 'app-inicio-de-sesion',
   standalone: true,
-  imports: [],
+  imports: [FormsModule, RouterModule, MatIconModule],  // Importar MatIconModule aquí
   templateUrl: './inicio-de-sesion.component.html',
-  styleUrl: './inicio-de-sesion.component.css'
+  styleUrls: ['./inicio-de-sesion.component.css']
 })
 export class InicioDeSesionComponent {
+  correo: string = '';
+  clave: string = '';
 
+  constructor(private authService: AuthService, private router: Router) {}
+
+  onSubmit(): void {
+    const credentials: InicioDeSesionDTO = { correo: this.correo, clave: this.clave };
+    
+    this.authService.iniciarSesion(credentials).subscribe(
+      (response) => {
+        this.authService.guardarToken(response.token);  // Guardar el token recibido
+
+        const rol = this.authService.obtenerRolUsuario(); // Obtener el rol del usuario
+
+        if (rol === 'Administrador') {
+          this.router.navigate(['/administrador']);
+        } else {
+          this.router.navigate(['/usuario/inicio']);  // Navegar a '/usuario/inicio'
+        }
+
+        // Mostrar alerta de éxito
+        alert('Inicio de sesión exitoso');
+      },
+      (error) => {
+        console.error('Error al iniciar sesión:', error);
+        // Mostrar alerta de error
+        alert('Error al iniciar sesión');
+      }
+    );
+  }
 }

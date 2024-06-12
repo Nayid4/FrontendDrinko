@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-encabezado',
@@ -19,6 +20,23 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class EncabezadoComponent {
   loggedIn = false;
-
+  toggleUserMenu = false;
   toggleCategories = false;
+
+  constructor(private authService: AuthService) {}
+
+  toggleUserActions(): void {
+    this.toggleUserMenu = !this.toggleUserMenu;
+  }
+
+  cerrarSesion(): void {
+    this.authService.cerrarSesion();
+    this.loggedIn = false;
+    this.toggleUserMenu = false; // Asegúrate de cerrar el menú de usuario al cerrar la sesión
+  }
+
+  ngOnInit(): void {
+    // Verificar si el usuario está autenticado al cargar el componente
+    this.loggedIn = this.authService.obtenerToken() !== null;
+  }
 }
