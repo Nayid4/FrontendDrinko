@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Carrito } from '../models/carrito.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +19,12 @@ export class CarritoService {
     return this.http.get(`${this.apiUrl}/${id}`);
   }
 
-  crearCarrito(carrito: any): Observable<any> {
-    return this.http.post(this.apiUrl, carrito);
+  obtenerCarritoPorIdDeUsuario(id: string): Observable<Carrito> {
+    return this.http.get<Carrito>(`${this.apiUrl}/carrito-usuario/${id}`);
+  }
+
+  crearCarrito(usuarioId: string): Observable<any> {
+    return this.http.post(this.apiUrl, usuarioId);
   }
 
   actualizarCarrito(id: string, carrito: any): Observable<any> {

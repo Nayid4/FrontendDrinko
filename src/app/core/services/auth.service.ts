@@ -73,7 +73,32 @@ export class AuthService {
     return null;
   }
 
+  obtenerDatosUsuario(): AuthResponse | null {
+    const token = this.obtenerToken();
+    if (token) {
+      const decodedToken = this.parseJwt(token);
+      return {
+        usuarioId: decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'],
+        nombreCompleto: decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'],
+        rol: decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'],
+        correo: decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'],
+        token: token
+      };
+    }
+    return null;
+  }
+
   cerrarSesion(): void {
     this.removeItemLocalStorage('token');
+  }
+
+  private parseJwt(token: string): any {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    return JSON.parse(jsonPayload);
   }
 }
