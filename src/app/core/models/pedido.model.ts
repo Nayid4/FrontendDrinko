@@ -1,13 +1,13 @@
-
-export interface Carrito {
+export interface Pedido {
     id: string;
     usuarioId: string;
-    productosCarrito: ProductoCarrito[];
+    direccionId: string,
+    productosPedido: ProductoPedido[];
   }
   
-  export interface ProductoCarrito {
+  export interface ProductoPedido{
     id: string;
-    carritoId: string,
+    pedidoId: string;
     productoId: string;
     imagen: string;
     cantidad: number;

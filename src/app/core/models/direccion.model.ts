@@ -6,5 +6,5 @@ export interface Direccion {
     ciudad: string;
     departamento: string;
     codigoPostal: number;
-  }
+}
   

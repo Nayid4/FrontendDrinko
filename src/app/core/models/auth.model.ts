@@ -6,7 +6,10 @@ export interface InicioDeSesionDTO {
   }
   
   export interface AuthResponse {
+    usuarioId: string,
+    nombreCompleto: string,
+    rol: string,
+    correo: string,
     token: string;
-    usuario: Usuario;
   }
   

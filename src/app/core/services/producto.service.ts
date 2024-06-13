@@ -17,9 +17,7 @@ export class ProductoService {
   }
 
   obtenerProductosPorCategoria(categoriaId: string): Observable<Producto[]> {
-    return this.http.get<Producto[]>(this.apiUrl).pipe(
-      map((productos: Producto[]) => productos.filter(producto => producto.categoriaId === categoriaId))
-    );
+    return this.http.get<Producto[]>(`${this.apiUrl}/listar-por-categoria/${categoriaId}`);
   }
 
   obtenerProductoPorId(id: string): Observable<Producto> {
