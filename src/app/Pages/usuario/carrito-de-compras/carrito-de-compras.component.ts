@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { EncabezadoComponent } from '../../../shared/components/encabezado/encabezado.component';
 import { TarjetaDeProductoDeCarritoComponent } from '../../../shared/components/tarjeta-de-producto-de-carrito/tarjeta-de-producto-de-carrito.component';
 import { AuthService } from '../../../core/services/auth.service';
@@ -15,37 +16,37 @@ import { CarritoService } from '../../../core/services/carrito.service';
 })
 export class CarritoDeComprasComponent implements OnInit {
 
-  productosCarrito: ProductoCarrito[] = [];
-  usuario: AuthResponse | null = {} as AuthResponse;
-  carrito: Carrito = {} as Carrito;
-  total: number = 0;
+  productosCarrito: ProductoCarrito[] = []
+  usuario: AuthResponse | null = {} as AuthResponse
+  carrito: Carrito = {} as Carrito
+  total: number = 0
 
-  constructor(private authService: AuthService, private carritoService: CarritoService) {}
+  constructor(private authService: AuthService, private carritoService: CarritoService, private router: Router) {}
 
   ngOnInit(): void {
-    this.usuario = this.authService.obtenerDatosUsuario();
-    if (this.usuario == null) {
+    this.usuario = this.authService.obtenerDatosUsuario()
+    if (this.usuario == null){
       return;
     }
 
-    this.cargarProductosCarrito();
+    this.cargarProductosCarrito()
   }
 
-  cargarProductosCarrito(): void {
+  cargarProductosCarrito() : void{
     this.carritoService.obtenerCarritoPorIdDeUsuario(this.usuario!.usuarioId).subscribe(
       (carrito) => {
-        this.carrito = carrito;
-        this.productosCarrito = carrito.productos;
-        this.actualizarTotal();
+        this.carrito = carrito
+        this.productosCarrito = carrito.productos
+        this.actualizarTotal()
       },
       error => {
-        console.log("Se ha presentado un error al cargar los productos: ", error);
+        console.log("Se ha presentado un error al cargar los productos: ",error)
       }
     );
   }
 
   actualizarTotal(): void {
-    this.total = this.productosCarrito.reduce((acc, producto) => acc + (producto.precio * producto.cantidad), 0);
+    this.total = this.productosCarrito.reduce((acc, producto) => acc + (producto.precio * producto.cantidad), 0)
   }
 
   vaciarCarrito(): void {
@@ -53,16 +54,15 @@ export class CarritoDeComprasComponent implements OnInit {
       () => {
         this.productosCarrito = [];
         this.actualizarTotal();
-        console.log("Carrito vaciado con éxito");
       },
       error => {
-        console.error("Error al vaciar el carrito: ", error);
+        console.log("Se ha presentado un error al vaciar el carrito: ", error)
       }
     );
   }
 
   comprar(): void {
-    // Implementar lógica para proceder con la compra
+    this.router.navigate(['/usuario/realizar-pedido']);
   }
 
   onProductoEliminado(): void {

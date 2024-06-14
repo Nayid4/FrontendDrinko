@@ -9,6 +9,9 @@ import { ContactoComponent } from './contacto/contacto.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { CarritoDeComprasComponent } from './carrito-de-compras/carrito-de-compras.component';
 import { AuthGuard } from '../../core/guards/auth.guard';
+import { PedidosComponent } from './pedidos/pedidos.component';
+import { AgregarPedidoComponent } from './agregar-pedido/agregar-pedido.component';
+import { AgregarDireccionComponent } from './agregar-direccion/agregar-direccion.component';
 
 export const USUARIO_ROUTES: Routes = [
   {
@@ -23,6 +26,9 @@ export const USUARIO_ROUTES: Routes = [
       { path: 'contacto', component: ContactoComponent },
       { path: 'carrito-de-compras', component: CarritoDeComprasComponent, canActivate: [AuthGuard] },
       { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },
+      { path: 'mis-pedidos', component: PedidosComponent, canActivate: [AuthGuard] },
+      { path: 'realizar-pedido', component: AgregarPedidoComponent, canActivate: [AuthGuard] },
+      { path: 'agregar-direccion', component: AgregarDireccionComponent, canActivate: [AuthGuard] },
     ]
   }
 ];

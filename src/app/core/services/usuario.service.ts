@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Usuario } from '../models/usuario.model';
+import { Direccion, DireccionCommand } from '../models/direccion.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,10 @@ export class UsuarioService {
 
   crearUsuario(usuario: Usuario): Observable<Usuario> {
     return this.http.post<Usuario>(this.apiUrl, usuario);
+  }
+
+  agregarDireccion(direccion: DireccionCommand): Observable<any> {
+    return this.http.post<Usuario>(`${this.apiUrl}/agregar-direccion`, direccion);
   }
 
   actualizarUsuario(id: string, usuario: Usuario): Observable<Usuario> {
