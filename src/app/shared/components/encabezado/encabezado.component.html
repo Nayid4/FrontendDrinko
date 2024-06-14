@@ -26,7 +26,7 @@
         <div *ngIf="toggleUserMenu" class="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg z-20">
           <a [routerLink]="['/usuario/perfil']" class="block px-4 py-2 hover:bg-gray-200">Perfil</a>
           <a [routerLink]="['/usuario/mis-pedidos']" class="block px-4 py-2 hover:bg-gray-200">Mis Pedidos</a>
-          <a (click)="cerrarSesion()" class="block px-4 py-2 hover:bg-gray-200">Cerrar Sesión</a>
+          <a (click)="cerrarSesion()" [routerLink]="['/usuario/inicio']" class="block px-4 py-2 hover:bg-gray-200">Cerrar Sesión</a>
         </div>
       </div>
       <ng-template #notLoggedInUser>
