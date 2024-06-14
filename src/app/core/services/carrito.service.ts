@@ -35,6 +35,10 @@ export class CarritoService {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
 
+  vaciarCarrito(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/vaciar/${id}`);
+  }
+
   agregarProducto(carritoId: string, producto: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/agregar-producto`, { idCarrito: carritoId, ...producto });
   }

@@ -15,41 +15,50 @@ import { CarritoService } from '../../../core/services/carrito.service';
 })
 export class CarritoDeComprasComponent implements OnInit {
 
-  productosCarrito: ProductoCarrito[] = []
-  usuario: AuthResponse | null = {} as AuthResponse
-  carrito: Carrito = {} as Carrito
-  total: number = 0
+  productosCarrito: ProductoCarrito[] = [];
+  usuario: AuthResponse | null = {} as AuthResponse;
+  carrito: Carrito = {} as Carrito;
+  total: number = 0;
 
-  constructor(private authService: AuthService, private carritoService: CarritoService){}
+  constructor(private authService: AuthService, private carritoService: CarritoService) {}
 
   ngOnInit(): void {
-    this.usuario = this.authService.obtenerDatosUsuario()
-    if (this.usuario == null){
+    this.usuario = this.authService.obtenerDatosUsuario();
+    if (this.usuario == null) {
       return;
     }
 
-    this.cargarProductosCarrito()
+    this.cargarProductosCarrito();
   }
 
-  cargarProductosCarrito() : void{
+  cargarProductosCarrito(): void {
     this.carritoService.obtenerCarritoPorIdDeUsuario(this.usuario!.usuarioId).subscribe(
       (carrito) => {
-        this.carrito = carrito
-        this.productosCarrito = carrito.productos
-        this.actualizarTotal()
+        this.carrito = carrito;
+        this.productosCarrito = carrito.productos;
+        this.actualizarTotal();
       },
       error => {
-        console.log("Se ha presentado un error al cargar los productos: ",error)
+        console.log("Se ha presentado un error al cargar los productos: ", error);
       }
     );
   }
 
   actualizarTotal(): void {
-    this.total = this.productosCarrito.reduce((acc, producto) => acc + (producto.precio * producto.cantidad), 0)
+    this.total = this.productosCarrito.reduce((acc, producto) => acc + (producto.precio * producto.cantidad), 0);
   }
 
   vaciarCarrito(): void {
-    // Implementar lógica para vaciar el carrito
+    this.carritoService.vaciarCarrito(this.carrito.id).subscribe(
+      () => {
+        this.productosCarrito = [];
+        this.actualizarTotal();
+        console.log("Carrito vaciado con éxito");
+      },
+      error => {
+        console.error("Error al vaciar el carrito: ", error);
+      }
+    );
   }
 
   comprar(): void {
