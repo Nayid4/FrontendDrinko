@@ -7,10 +7,9 @@
       <span class="font-bold text-xl">Drinko</span>
     </a>
 
-    <!-- Search Bar -->
-    <div class="flex-1 mx-4 my-4 md:my-0">
-      <input type="text" placeholder="Buscar..." class="w-full p-2 rounded-md border border-gray-300 text-black focus:outline-none focus:border-indigo-500">
-    </div>
+    <input type="text" placeholder="Buscar..." class="w-full mx-10 p-2 rounded-md border border-gray-300 text-black focus:outline-none focus:border-indigo-500"
+       [(ngModel)]="busqueda" (input)="filtrarProductos()">
+
 
     <!-- Cart and User Actions -->
     <div class="flex items-center space-x-4 relative">

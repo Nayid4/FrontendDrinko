@@ -6,6 +6,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../../core/services/auth.service';
 import { Categoria } from '../../../core/models/categoria.model';
 import { CategoriaService } from '../../../core/services/categoria.service';
+import { FormsModule } from '@angular/forms';
+import { SearchService } from '../../../core/services/search.service'; // Asegúrate de importar el servicio de búsqueda
 
 @Component({
   selector: 'app-encabezado',
@@ -14,7 +16,8 @@ import { CategoriaService } from '../../../core/services/categoria.service';
     CommonModule, 
     RouterModule, 
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    FormsModule 
   ],
   templateUrl: './encabezado.component.html',
   styleUrls: ['./encabezado.component.css']
@@ -24,8 +27,11 @@ export class EncabezadoComponent implements OnInit {
   toggleUserMenu = false;
   toggleCategories = false;
   categorias: Categoria[] = [];
+  busqueda: string = '';
 
-  constructor(private authService: AuthService, private categoriaService: CategoriaService) {}
+  constructor(private authService: AuthService, 
+              private categoriaService: CategoriaService,
+              private searchService: SearchService) {} // Inyecta el servicio de búsqueda
 
   toggleUserActions(): void {
     this.toggleUserMenu = !this.toggleUserMenu;
@@ -53,5 +59,10 @@ export class EncabezadoComponent implements OnInit {
     this.loggedIn = this.authService.obtenerToken() !== null;
     // Cargar las categorías al iniciar el componente
     this.cargarCategorias();
+  }
+
+  filtrarProductos(): void {
+    // Actualiza el término de búsqueda en el servicio de búsqueda
+    this.searchService.actualizarBusqueda(this.busqueda);
   }
 }
