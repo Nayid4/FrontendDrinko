@@ -11,7 +11,7 @@ import { jwtDecode } from 'jwt-decode';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://localhost:7248'; // URL base de tu API
+  private apiUrl = 'https://drinkobackend.azurewebsites.net'; // URL base de tu API
 
   constructor(
     private http: HttpClient,

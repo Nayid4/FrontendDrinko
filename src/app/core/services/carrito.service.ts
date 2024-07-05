@@ -7,7 +7,7 @@ import { Carrito } from '../models/carrito.model';
   providedIn: 'root'
 })
 export class CarritoService {
-  private apiUrl = 'https://localhost:7248/carrito-de-compras'; // URL base de tu API
+  private apiUrl = 'https://drinkobackend.azurewebsites.net/carrito-de-compras'; // URL base de tu API
 
   constructor(private http: HttpClient) { }
 
