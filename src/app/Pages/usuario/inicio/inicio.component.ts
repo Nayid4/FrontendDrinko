@@ -4,52 +4,51 @@ import { ProductoService } from '../../../core/services/producto.service';
 import { TarjetaDeProductoComponent } from '../../../shared/components/tarjeta-de-producto/tarjeta-de-producto.component';
 import { CommonModule } from '@angular/common';
 import { EncabezadoComponent } from '../../../shared/components/encabezado/encabezado.component';
-import { SearchService } from '../../../core/services/search.service';
+import { DineroPipe } from '../../../shared/pipes/dinero/dinero.pipe';
+import { BuscarPipe } from "../../../shared/pipes/buscar/buscar.pipe";
 
 @Component({
-  selector: 'app-inicio',
-  standalone: true,
-  imports: [CommonModule,
-    EncabezadoComponent,
-    TarjetaDeProductoComponent],
-  templateUrl: './inicio.component.html',
-  styleUrls: ['./inicio.component.css']
+    selector: 'app-inicio',
+    standalone: true,
+    templateUrl: './inicio.component.html',
+    styleUrls: ['./inicio.component.css'],
+    imports: [CommonModule,
+        EncabezadoComponent,
+        TarjetaDeProductoComponent,
+        DineroPipe, BuscarPipe]
 })
 export class InicioComponent implements OnInit {
   productos: Producto[] = [];
   productosFiltrados: Producto[] = [];
+  mensaje = {msg: "Hola Mundo"}
+  date = new Date()
+  dinero = 19500
 
-  constructor(private productoService: ProductoService, private searchService: SearchService) {}
+  busqueda: string = ''
+
+  obtenerProdcutoDeBusqueda(nombreProducto: string){
+    this.busqueda = nombreProducto
+  }
+
+  constructor(private productoService: ProductoService) {}
 
   ngOnInit(): void {
     this.obtenerProductos();
-    this.escucharCambiosDeBusqueda();
   }
 
   obtenerProductos(): void {
-    this.productoService.obtenerProductos().subscribe(
-      (productos: Producto[]) => {
+    this.productoService.obtenerProductos().subscribe({
+      next:(productos: Producto[]) => {
         this.productos = productos;
         this.productosFiltrados = [...productos]; // Inicialmente todos los productos
       },
-      (error: any) => {
+      error: (error: any) => {
         console.error('Error al obtener los productos:', error);
       }
+    }
     );
   }
 
-  escucharCambiosDeBusqueda(): void {
-    this.searchService.obtenerBusquedaActual().subscribe(busqueda => {
-      if (busqueda.trim() === '') {
-        this.productosFiltrados = [...this.productos]; // Restaurar productos originales si la búsqueda está vacía
-      } else {
-        const filtro = busqueda.trim().toLowerCase();
-        this.productosFiltrados = this.productos.filter(producto =>
-          producto.nombre.toLowerCase().includes(filtro)
-        );
-      }
-    });
-  }
 
   trackByFn(index: number, producto: Producto): string {
     return producto.id; // Asegúrate de devolver un identificador único aquí

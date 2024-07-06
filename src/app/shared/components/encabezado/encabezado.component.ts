@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
@@ -7,7 +7,6 @@ import { AuthService } from '../../../core/services/auth.service';
 import { Categoria } from '../../../core/models/categoria.model';
 import { CategoriaService } from '../../../core/services/categoria.service';
 import { FormsModule } from '@angular/forms';
-import { SearchService } from '../../../core/services/search.service'; // Asegúrate de importar el servicio de búsqueda
 
 @Component({
   selector: 'app-encabezado',
@@ -28,10 +27,11 @@ export class EncabezadoComponent implements OnInit {
   toggleCategories = false;
   categorias: Categoria[] = [];
   busqueda: string = '';
+  @Output() buscar = new EventEmitter<string>(); 
 
   constructor(private authService: AuthService, 
-              private categoriaService: CategoriaService,
-              private searchService: SearchService) {} // Inyecta el servicio de búsqueda
+              private categoriaService: CategoriaService
+            ) {} // Inyecta el servicio de búsqueda
 
   toggleUserActions(): void {
     this.toggleUserMenu = !this.toggleUserMenu;
@@ -61,8 +61,9 @@ export class EncabezadoComponent implements OnInit {
     this.cargarCategorias();
   }
 
-  filtrarProductos(): void {
-    // Actualiza el término de búsqueda en el servicio de búsqueda
-    this.searchService.actualizarBusqueda(this.busqueda);
+  
+
+  buscarProducto(nombreProducto: string){
+    this.buscar.emit(nombreProducto)
   }
 }

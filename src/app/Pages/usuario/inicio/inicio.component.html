@@ -1,14 +1,20 @@
-<app-encabezado></app-encabezado>
+<!--<h1>Pantalla de inico</h1>
+<p>{{ mensaje | json }}</p>
+<p>{{ date | date: "dd/mm/yyyy"}}</p>
+<p>{{ dinero | dinero }}</p>-->
+
+<app-encabezado (buscar)="obtenerProdcutoDeBusqueda($event)"></app-encabezado>
 
 <div class="flex justify-center">
   <div class="container">
     <div class="flex flex-wrap justify-around pt-2">
-      <ng-container *ngIf="productosFiltrados.length > 0; else noProductos">
-        <app-tarjeta-de-producto *ngFor="let producto of productosFiltrados; let i = index; trackBy: trackByFn" [producto]="producto"></app-tarjeta-de-producto>
-      </ng-container>
-      <ng-template #noProductos>
+
+      @for(producto of productos | buscar: busqueda; track producto.id){
+        <app-tarjeta-de-producto [producto]="producto"/>
+      } @empty {
         <p class="text-gray-600">No se encontraron productos.</p>
-      </ng-template>
+      }
+
     </div>
   </div>
 </div>
