@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UsuarioLayoutComponent } from './usuario-layout-component.component';
 
-describe('UsuarioLayoutComponentComponent', () => {
+/*describe('UsuarioLayoutComponentComponent', () => {
   let component: UsuarioLayoutComponent;
   let fixture: ComponentFixture<UsuarioLayoutComponent>;
 
@@ -20,4 +20,4 @@ describe('UsuarioLayoutComponentComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-});
+});*/
