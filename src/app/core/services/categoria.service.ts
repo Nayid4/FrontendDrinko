@@ -7,7 +7,7 @@ import { Categoria } from '../models/categoria.model';
   providedIn: 'root'
 })
 export class CategoriaService {
-  private apiUrl = 'https://drinkobackend.azurewebsites.net/categorias'; // URL base de tu API
+  private apiUrl = 'https://localhost:7248/categorias'; // URL base de tu API
 
   constructor(private http: HttpClient) { }
 

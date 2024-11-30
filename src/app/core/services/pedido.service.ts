@@ -7,7 +7,7 @@ import { Pedido, ProductoPedido } from '../models/pedido.model';
   providedIn: 'root'
 })
 export class PedidoService {
-  private apiUrl = 'https://drinkobackend.azurewebsites.net/pedidos'; // URL base de tu API
+  private apiUrl = 'https://localhost:7248/pedidos'; // URL base de tu API
 
   constructor(private http: HttpClient) { }
 

@@ -8,7 +8,7 @@ import { Producto } from '../models/producto.model';
   providedIn: 'root'
 })
 export class ProductoService {
-  private apiUrl = 'https://drinkobackend.azurewebsites.net/productos'; // URL base de tu API
+  private apiUrl = 'https://localhost:7248/productos'; // URL base de tu API
   private productos: Producto[] = []; // Almacenar productos localmente
 
   constructor(private http: HttpClient) { }

@@ -8,7 +8,7 @@ import { Direccion, DireccionCommand } from '../models/direccion.model';
   providedIn: 'root'
 })
 export class UsuarioService {
-  private apiUrl = 'https://drinkobackend.azurewebsites.net/usuarios'; // URL base de tu API
+  private apiUrl = 'https://localhost:7248/usuarios'; // URL base de tu API
 
   constructor(private http: HttpClient) { }
 
